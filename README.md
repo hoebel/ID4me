@@ -52,7 +52,7 @@ Id4meLogon logon_handler = new Id4meLogon(
 // The first parameter is just the id4me of the user, 
 // the second parameter is indicating whether a dynamic client registration shall be done 
 // if the client is not already registered at the identity authority
-Id4meSessionData session_data = logon_handler.createSessionData(userid, true);
+Id4meSessionData session_data = logon_handler.createSessionData(id4me, true);
 ```
 
 * Get the authorization uri from the `logon_handler`
