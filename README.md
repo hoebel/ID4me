@@ -36,9 +36,10 @@ How to use
 * Build jar file locally
 * Include the jar file in your java classpath
 * Create the configuration files required by the `Id4meLogon` constructor
+* Define an id4me, which is the domain wich points to the ID4me logon configuration in the dns
 ```java
 // The ID4me of the user, used to discover the ID4me dns record
-String userid = “user.id4me.org” 
+String id4me = “user.id4me.org” 
 ```
 * Create a new `logon_handler`
 ```java
