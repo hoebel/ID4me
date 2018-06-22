@@ -35,35 +35,15 @@ How to use
 
 * Build jar file locally
 * Include the jar file in your java classpath
-* Create the variables required by the `Id4meLogon` constructor
+* Create the configuration files required by the `Id4meLogon` constructor
 ```java
-// The callback end point for the authentication uri
-String redirect_uri = “https://mydomain.com/logon;
-// An uri of a logo image for the consent form, or null
-String logo_uri = “https://mydomain.com/img/logo.png”;
-// The address of a dnssec validating dns resolver
-String dns_server = “8.8.8.8;
-// The client name used for the client registration
-String client_name = “My-Relying-Party”;
-// A list of claim names which shall be shown to the user at the consent form
-String[] core_v1_claims = new String[]{“name”, “id4me.identity”, “email”};
-// A list of claim names which are mandatory at the consent form
-String[] mandatory_v1_claims = new String[]{“id4me.identity”, “email”};
-// The dnssec root key used by the Id4meResolver
-String dnsssec_root_key = “. IN DS 19036 8 2 49AAC11D7B6F6446702E54A1607371607A1A41855200FD2CE1CDDE32F24E8FB5”;
 // The ID4me of the user, used to discover the ID4me dns record
 String userid = “user.id4me.org” 
 ```
 * Create a new `logon_handler`
 ```java
 Id4meLogon logon_handler = new Id4meLogon(
-	core_v1_claims, 
-	mandatory_v1_claims, 
-	client_name, 
-	redirect_uri, 
-	logo_uri, 
-	dns_server, 
-	dnsssec_root_key);
+	"id4me.properties", "claims.parameters.json");
 ```
 
 * Create new `session_data
@@ -87,6 +67,11 @@ String code = reqest.getParameter("code");
 logon_handler.authenticate(session_data, code);
 ```
 
+* The unique identity of an user is a String consists of the iss + # + sub. 
+You now can get it from the `session_data` 
+```java
+String identity = session_data.getIdentityHandle();
+```
 * If you need the userinfo, you now can get it from the `logon_handler`
 ```java
 // first we call userinfo(session_data) to fetch the userinfo data from the identity agent
